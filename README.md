@@ -15,7 +15,11 @@
 组件测试页面目录，每个组件都必须经过测试，包括性能测试。
 
 ## 组件贡献列表
+<<<<<<< HEAD
 - splitPie：baizn、zhanghq
+=======
+- splitPie：baizn
+>>>>>>> 564dfc4b618b73c5145af2c8aa485c34fa4ce336
 
 ## 参考资料
 [lodash中文文档](http://www.css88.com/doc/lodash/)
