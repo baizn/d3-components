@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>splitBar测试</title>
+	<style>
+		body{
+	margin: 0;
+	padding: 0;
+	background: #040931;
+	font-family: "微软雅黑";
+}
+	</style>
+</head>
+<body id="body">
+    <button id="btn">按钮</button>
+    <script type="text/javascript" src="../lib/sea.js" ></script>
+    <script type="text/javascript" src='../lib/jquery.js'></script>
+    <script type="text/javascript" src="../config.js" ></script>
+	  <script type="text/javascript">
+
+        seajs.use(['../src/splitBar'], function(splitBar) {
+            var width = 400
+            var height = 200
+
+          	var data = [
+          		{
+          			name: "江北区",
+          			value: 6026
+          		},{
+          			name: "渝北区",
+          			value: 4928
+          		}
+          	]
+
+            var data2 = [
+              {
+                name: "江北区2",
+                value: 6025
+              },{
+                name: "渝北区2",
+                value: 4928
+              },{
+                name: "渝中区2",
+                value: 3831
+              },{
+                name: "大渡口区2",
+                value: 1839
+              },{
+                name: "九龙坡区2",
+                value: 3338
+              }
+            ]
+
+
+            var config = {
+              width: width,
+              height: height,
+              fontFamily: '微软雅黑',
+              min: 0,
+              max: 25,
+              scale: 1,
+              rectStyle: {
+                width: 4,
+                height: 6,
+                color: ['#5810ed', '#282f36'],
+                spacing: 4, //小方块之间的间距
+                skewX: 30,  //倾斜角度
+                radius: 3,  //椭圆的半径
+                margin: {
+                  left:10,
+                  right:10
+                },
+                symbol: 'tilt',  //方块类型（矩形rect，平行四边形tilt，椭圆circle）
+              },
+              leftTextStyle: {
+                fontSize: 12,
+                color: 'yellow',
+                textAnchor: 'end'
+              },
+              rightTextStyle: {
+                fontSize: 12,
+                color: '#fff',
+                textAnchor: 'middle'
+              },
+              grid: {
+                x: 60,
+                x2: 40
+              }
+
+            }
+            var svg = d3.select('body')
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .style('padding-top', '10px')
+
+            splitBar.drawSplitBar(svg, data2, config)
+
+             $('#btn').on('click', function(){
+                splitBar.drawSplitBar(svg, data, config)
+
+             }) 
+        })
+   </script>
+</body>
+</html>
