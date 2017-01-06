@@ -13,7 +13,7 @@
 	</style>
 </head>
 <body id="body">
-    <button id="btn">按钮</button>
+ 
     <script type="text/javascript" src="../lib/sea.js" ></script>
     <script type="text/javascript" src='../lib/jquery.js'></script>
     <script type="text/javascript" src="../config.js" ></script>
@@ -23,17 +23,7 @@
             var width = 400
             var height = 200
 
-          	var data = [
-          		{
-          			name: "江北区",
-          			value: 6026
-          		},{
-          			name: "渝北区",
-          			value: 4928
-          		}
-          	]
-
-            var data2 = [
+            var data = [
               {
                 name: "江北区2",
                 value: 6025
@@ -95,12 +85,9 @@
                 .attr("height", height)
                 .style('padding-top', '10px')
 
-            splitBar.drawSplitBar(svg, data2, config)
+            splitBar.drawSplitBar(svg, data, config)
 
-             $('#btn').on('click', function(){
-                splitBar.drawSplitBar(svg, data, config)
-
-             }) 
+          
         })
    </script>
 </body>
