@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>polygonBar测试</title>
+    <style>
+        body{
+        margin: 0;
+        padding: 0;
+        background: #040931;
+        font-family: "微软雅黑";
+        }
+        /*轴线*/
+        .axis path,
+        .axis line{
+          fill: none;
+          stroke: #fff;
+          shape-rendering: crispEdges;
+        }
+
+        .axis text {
+          font-family: sans-serif;
+          font-size: 11px;
+          stroke: #fff;
+        }
+        .inner_line path, .inner_line line{
+          fill: none;
+          stroke: #285c81;
+          shape-rendering: crispEdges;
+          opacity: 0.5;
+        }
+    </style>
+</head>
+<body id="body">
+    <script type="text/javascript" src="../lib/sea.js" ></script>
+    <script type="text/javascript" src="../config.js" ></script>
+	  <script type="text/javascript">
+        seajs.use(['../src/polygonBar'], function(bar) {
+            console.log(bar)
+            var width = 640
+            var height = 270
+
+            var data = [
+              {
+                name: "1月",
+                value: 150
+              },{
+                name: "2月",
+                value: 450
+              },{
+                name: "3月",
+                value: 50
+              },{
+                name: "4月",
+                value: 300
+              }
+            ]
+
+           
+            var config = {
+                width: width,
+                height: height
+            }
+            var svg = d3.select('body')
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+            bar.drawPolygonBar(svg, data, config);
+        })
+   </script>
+</body>
+</html>
