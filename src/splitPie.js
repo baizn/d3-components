@@ -111,11 +111,7 @@ define(function(require) {
                 .attr("d", arc)
 
             //处理exit部分
-<<<<<<< HEAD
             
-=======
-            exit.remove()
->>>>>>> 265edeb62ce13f45c3663b507c461de35ff4da65
         }
     }
 
