@@ -139,6 +139,9 @@ define(function(require) {
 				.attr('font-size', leftTxt.fontSize)
 				.attr('text-anchor', leftTxt.textAnchor)
 				.attr('class', 'left-text')
+				.attr('x', 0)
+				.transition()
+      	.duration(1000)
 				.attr('x', grid.x)
 				.attr('y', rectStyle.height )
 				.text(function(d,i){
@@ -163,7 +166,10 @@ define(function(require) {
 			 .selectAll("gRect")
 			 .data(d3.range(cfg.min, max))  //产生一系列的数值
 			 .enter()  
-			 .append("rect")  
+			 .append("rect") 
+			 .attr('x', 0) 
+			 .transition()
+        .duration(1000)
 			 .attr("x", function(d,i){
 				//如果所有间距一样，不需要加if
 //           if(i%2==0){
@@ -203,6 +209,9 @@ define(function(require) {
 					.attr('fill', rightTxt.color)
 					.attr('font-size', rightTxt.fontSize)
 					.attr('text-anchor', rightTxt.textAnchor)
+					.attr('x', 0)
+					.transition()
+        	.duration(1000)
 					.attr('x', width-grid.x2)
 					.attr('y', rectStyle.height )
 					.text(function(d,i){
