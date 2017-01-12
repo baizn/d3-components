@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>splitPie测试</title>
+    <style>
+        body {
+            background: #040931;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/javascript" src="../lib/sea.js" ></script>
+    <script type="text/javascript" src="../config.js" ></script>
+	<script type="text/javascript">
+
+        seajs.use(['../src/circleArc'], function(arc) {
+            var width = 240
+            var height = 200
+
+            var config = {
+                width: width,
+                height: height,
+                outerRadius: 106,
+                innerRadius: 96
+            }
+
+            var data = {
+                value: 10.8,
+                name: '名称'
+            }
+            var svg = d3.select('#container')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+            
+            arc.drawArc(svg, data, config)
+        })
+   </script>
+</body>
+</html>
