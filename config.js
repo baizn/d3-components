@@ -7,6 +7,6 @@ seajs.config({
     alias: {
         jquery: '../lib/jquery.js',
         d3: '../lib/d3.v3.js',
-        lodashJS: '../lib/lodash.js'
+        lodash: '../lib/lodash.js'
     }
 })

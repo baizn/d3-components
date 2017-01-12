@@ -9,7 +9,7 @@ define(function(require) {
     /**
      * 引入公用的文件
      */
-    require('lodashJS')
+    require('lodash')
     require('d3')
 
     var splitPie = {
@@ -26,7 +26,7 @@ define(function(require) {
                 max: 40, //限制平分最多个数
                 scale: 1, //用于控制平分后圆的大小
                 outerRadius: width/4,
-                innerRadius: height/3,
+                innerRadius: width/3,
                 color: ['#c00cee', '#5478ff']
             }
         },

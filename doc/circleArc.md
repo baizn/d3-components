@@ -1,32 +1,36 @@
-##刻度饼图说明文档
+##半圆组件说明文档
 
 ###1 使用说明
 ```
-var splitPie = require('splitPie)
+var circleArc = require('circleArc')
 
 var width = 300
 var height = 300
 
-var svg = d3.select('body')
+var config = {
+    width: width,
+    height: height,
+    outerRadius: 106,
+    innerRadius: 96
+}
+
+var data = {
+    value: 10.8,
+    name: '名称'
+}
+
+//container为页面div元素的ID
+var svg = d3.select('#container')
     .append('svg')
     .attr('width', width)
     .attr('height', height)
 
-var data = [100, 20]
-
-var config = {
-    width: width,
-    height: height,
-    min: 0,
-    max: 40, //限制平分最多个数
-    //...
-}
-splitPie.drawSplitPie(svg, data, config)
+circleArc.drawArc(svg, data, config)
 ```
 
 ###2 接口说明
 ####2.1 接口调用
-调用方式：`splitPie.drawSplitPie(svg, data, config)`
+调用方式：`circleArc.drawArc(svg, data, config)`
 
 参数说明：
 
@@ -41,10 +45,6 @@ splitPie.drawSplitPie(svg, data, config)
 | ----------- | ------ | ---- | ---------------------- | ---------- |
 | width       | svg宽度  | 否    | 200                    |            |
 | height      | svg高度  | 否    | 200                    |            |
-| min         | 平分最小个数 | 否    | 0                      |            |
-| max         | 平分最大个数 | 否    | 20                     |            |
-| scale       | 缩放因子   | 否    | 1                      |            |
 | outerRadius | 外半径    | 否    | width/4                |            |
 | innerRadius | 内半径    | 否    | width                  |            |
-| color       | 两个颜色值  | 否    | ['#c00cee', '#5478ff'] | color类型为数组 |
 

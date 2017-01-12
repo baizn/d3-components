@@ -8,7 +8,7 @@ define(function(require) {
   /**
    * 引入公用的文件
    */
-  require('lodashJS')
+  require('lodash')
   require('d3')
 
   var polygonBar = {

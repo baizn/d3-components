@@ -20,6 +20,7 @@
 - splitBar: zhanghq
 - triangleBar: zhanghq
 - polygonBar: zhanghq
+- circleArc: baizn
 
 
 ## 参考资料
