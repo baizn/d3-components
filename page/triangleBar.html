@@ -39,7 +39,7 @@
         seajs.use(['../src/triangleBar'], function(bar) {
             console.log(bar)
             var width = 450
-            var height = 500
+            var height = 280
             var data = [
               {
                 name: "江北区",
@@ -63,7 +63,29 @@
             ]
 
             var config = {
-                
+                width: width,
+                height: height,
+                itemStyle: {
+                  barWidth: 6,
+                  color: ['#b3ff03', '#54a707'],
+                  borderColor: '#de2528',
+                  borderWidth: 1,
+                  circle:{
+                    color:'#fff',
+                    r: 3,
+                  }
+                },
+                xText:{
+                  color: '#a5cfe0'
+                },
+                xAxis: {
+                  color: '#2c668e'
+                },
+                grid:{
+                  x: 45,
+                  y: 60,
+                  y2:20
+                }
             }
             var svg = d3.select('body')
                 .append("svg")

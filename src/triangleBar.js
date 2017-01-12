@@ -21,22 +21,28 @@ define(function(require){
       return {
         width: width,
         height: height,
-        padding:{
-          left: 45,
-          bottom: 60,
-          top:20
-        },
-        barWidth: 6,
-        lineColor: '#2c668e',
-        color: ['#b3ff03', '#54a707'],
-        borderColor: '#de2528',
-        borderWidth: 1,
-        circle:{
-          color:'#fff',
-          r: 3,
+        itemStyle: {
+          barWidth: 6,
+          color: ['#b3ff03', '#54a707'],
+          borderColor: '#de2528',
+          borderWidth: 1,
+          circle:{
+            color:'#fff',
+            r: 3,
+          }
         },
         xText:{
-          color: '#a5cfe0'
+          fontSize: 12,
+          color: '#a5cfe0',
+          textAnchor: 'middle'
+        },
+        xAxis: {
+          color: '#2c668e'
+        },
+        grid:{
+          x: 45,
+          y: 60,
+          y2:20
         }
       }
     },
@@ -47,7 +53,7 @@ define(function(require){
       var cfg = _.assign({}, this.defaultSetting(), opt)
       var width = cfg.width
       var height = cfg.height
-      var color = cfg.color
+      var color = cfg.itemStyle.color
       var _slef = this
       var dataset = []
       var dataX = []
@@ -61,7 +67,7 @@ define(function(require){
        //定义y轴标尺
       var yScale = d3.scale.linear()
         .domain([0, d3.max(dataset)])
-        .range([height-cfg.padding.bottom-cfg.padding.top, 0])
+        .range([height-cfg.grid.y-cfg.grid.y2, 0])
       //定义纵轴  
       var yAxis=d3.svg.axis()
         .scale(yScale)
@@ -70,81 +76,82 @@ define(function(require){
       //添加y轴
       var yBar=svg.append("g")
         .attr('class','axis axis-y')
-        .attr('transform', 'translate('+cfg.padding.left+', '+cfg.padding.top+')')
+        .attr('transform', 'translate('+cfg.grid.x+', '+cfg.grid.y2+')')
         .call(yAxis)
       //定义纵轴网格线
         var yInner = d3.svg.axis()
         .scale(yScale)
-        .tickSize(-(width- cfg.padding.left-10),0)
+        .tickSize(-(width- cfg.grid.x-10),0)
         .tickFormat("")
         .orient("left")
         
         //添加纵轴网格线
         var yInnerBar=svg.append("g")
         .attr("class", "inner_line")
-        .attr('transform', 'translate('+cfg.padding.left+', '+cfg.padding.top+')')
+        .attr('transform', 'translate('+cfg.grid.x+', '+cfg.grid.y2+')')
         .call(yInner)  
       
         //x轴线
         svg.append('rect')
-          .attr('width', width- cfg.padding.left-10)
+          .attr('width', width- cfg.grid.x-10)
           .attr('height', 1)
-          .attr('fill', cfg.lineColor)
-          .attr('x', cfg.padding.left)
-          .attr('y', (height - cfg.padding.bottom))
+          .attr('fill', cfg.xAxis.color)
+          .attr('x', cfg.grid.x)
+          .attr('y', (height - cfg.grid.y))
 
         var polygon = svg.append('g')
           .attr('class', 'polygon')
-        
+
+        var itemStyle = cfg.itemStyle
         var dLen = dataset.length
-        var dwidth = (width - cfg.padding.left - cfg.barWidth)/dLen
-        
-        var barWidth = cfg.barWidth
+        var dwidth = (width - cfg.grid.x - itemStyle.barWidth)/dLen
+        var barWidth = itemStyle.barWidth
+
           polygon.selectAll('polygon')
             .data(dataset)
             .enter()
             .append('polygon')  
             .attr('points', function(d, i){
-              var p1 = (i*dwidth+cfg.padding.left+cfg.barWidth)+barWidth
-              var p2 = yScale(d) + cfg.padding.top
-              var p3 = height - cfg.padding.bottom
+              var p1 = (i*dwidth+cfg.grid.x+itemStyle.barWidth)+barWidth
+              var p2 = yScale(d) + cfg.grid.y2
+              var p3 = height - cfg.grid.y
               var points = ''+p1+', '+p2+'  '+(p1-barWidth)+',  '+p3+' '+(p1+barWidth)+' '+p3+' '
                return points
             })
           .attr("fill", function(d,i){
             return 'url(#' + linearGradient1.attr('id') + ')'
           })
-          .attr('stroke-width', cfg.borderWidth)
-          .attr('stroke', cfg.borderColor)
+          .attr('stroke-width', itemStyle.borderWidth)
+          .attr('stroke', itemStyle.borderColor)
 
         //添加上面小圆圈
         polygon.selectAll('sRect')
           .data(dataset)
           .enter()
           .append('circle')
-          .attr('r', cfg.circle.r)
+          .attr('r', itemStyle.circle.r)
           .attr('cx', function(d,i){
-            var cx = i*dwidth+cfg.padding.left+barWidth*2
+            var cx = i*dwidth+cfg.grid.x+barWidth*2
             return cx
           })
           .attr('cy', function(d,i){
             var cy = yScale(d) +20
             return cy
           })
-          .attr('fill', cfg.circle.color) 
+          .attr('fill', itemStyle.circle.color) 
 
         var texts = svg.append('g')
           .attr('class', 'texts')
-          .attr('transform', 'translate('+(cfg.padding.left)+', '+(height - cfg.padding.bottom+10)+')')
+          .attr('transform', 'translate('+(cfg.grid.x)+', '+(height - cfg.grid.y+10)+')')
          
-        var spacing = (width- cfg.padding.left-barWidth)/dLen
+        var spacing = (width- cfg.grid.x-barWidth)/dLen
         texts.selectAll('text')
           .data(dataset)
           .enter()
           .append('text')
           .attr('fill', cfg.xText.color)
-          .attr('font-size', 12)
-          .attr('text-anchor', 'millde')
+          .attr('font-size', cfg.xText.fontSize)
+          .attr('text-anchor', cfg.xText.textAnchor)
           .text(function(d,i){
             return dataX[i]
           })
