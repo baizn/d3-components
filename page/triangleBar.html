@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>triangleBar</title>
+  <style type="text/css">
+    body{
+        margin: 0;
+        padding: 0;
+        background: #040931;
+        font-family: "微软雅黑";
+        }
+        /*轴线*/
+        .axis path,
+        .axis line{
+          fill: none;
+          stroke: none;
+          shape-rendering: crispEdges;
+        }
+        .axis text {
+          font-family: sans-serif;
+          font-size: 11px;
+          stroke: #ccc;
+        }
+        .inner_line path, .inner_line line{
+          fill: none;
+          stroke: #285c81;
+          shape-rendering: crispEdges;
+          opacity: 0.5;
+        }
+
+  </style>
+</head>
+<body>
+<div id="triangleBar"></div>
+ <script type="text/javascript" src="../lib/sea.js" ></script>
+  <script type="text/javascript" src="../config.js" ></script>
+  <script type="text/javascript">
+
+        seajs.use(['../src/triangleBar'], function(bar) {
+            console.log(bar)
+            var width = 450
+            var height = 280
+            var data = [
+              {
+                name: "江北区",
+                value: 140
+              },{
+                name: "渝北区",
+                value: 100
+              },{
+                name: "渝中区",
+                value: 234
+              },{
+                name: "大渡口区",
+                value: 127
+              },{
+                name: "九龙坡区",
+                value: 78
+              },{
+                name: "九龙坡区",
+                value: 78
+              }
+            ]
+
+            var config = {
+                width: width,
+                height: height,
+                itemStyle: {
+                  barWidth: 6,
+                  color: ['#b3ff03', '#54a707'],
+                  borderColor: '#de2528',
+                  borderWidth: 1,
+                  circle:{
+                    color:'#fff',
+                    r: 3,
+                  }
+                },
+                xText:{
+                  color: '#a5cfe0'
+                },
+                xAxis: {
+                  color: '#2c668e'
+                },
+                grid:{
+                  x: 45,
+                  y: 60,
+                  y2:20
+                }
+            }
+            var svg = d3.select('body')
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+            bar.drawTriangleBar(svg, data, config)
+        })
+   </script>
+</body>
+</html>

@@ -16,7 +16,10 @@
 
 ## 组件贡献列表
 
-- splitPie：baizn、zhanghq
+- splitPie：baizn
+- splitBar: zhanghq
+- triangleBar: zhanghq
+- polygonBar: zhanghq
 
 
 ## 参考资料

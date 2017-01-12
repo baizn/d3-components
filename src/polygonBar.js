@@ -16,30 +16,25 @@ define(function(require) {
      * 柱状图默认配置项
      */
     defaultSetting: function() {
-     
       var width = 450
-      var height = 500
+      var height = 400
       return {
         width: width,
         height: height,
-        min: 0,
-        max: 19,
+        min: 1,
         scale: 1,
         zoom: 6,
-        color: ['#49aefe', '#9936e8'],
-        padding: {
-          bottom: 60,
-          left: 50
-        },
-        margin: {
-          left: 60
-        },
-        coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //六边形的六个坐标点
+        color: ['#d63200', '#9936e8'],
+        //coordinate: [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] , //六边形的六个坐标点
+        coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //正六边形的六个坐标点
         itemStyle:{
           strokeWidth: 1,
-          stroke: '#06b7c7'
+          stroke: '#06b7c7',
+          margin: {
+            left: 65
+          }
         },
-        textStyle: {
+        xText: {
           size: 14,
           color: '#fff',
           textAnchor: 'start',
@@ -50,45 +45,33 @@ define(function(require) {
         yAxis: {
           show: true
         },
-        grid: {   //直角坐标系内绘图网格
-          x: 60,  //网格左上角横坐标
-          x2: 40, //网格右下角横坐标
-          y: 50,  //网格左上角纵坐标
-          y2: 0
-      }
+        xAxis: {
+          color: '#fff'
+        },
+        grid: {  //文字离左右两边的距离
+          x: 50,
+          y: 60
+        }
       }
     },
     /**
-     * 绘制饼图
+     * 绘制柱状图
      */
-    drawSplitBar: function(svg, data, opt) {
+    drawPolygonBar: function(svg, data, opt) {
       var config = _.assign({}, this.defaultSetting(), opt)
       var dataset = []
       for(var i = 0, len = data.length; i<len; i++){
         dataset.push(data[i].value)
       }
-      
+      var polygonW = 25
       var dataLen = data.length
-     
-      
-      //基础配置项
-      var cfg = {
-        min: config.min,
-        max: config.max,
-        scale: config.scale,
-        zoom: config.zoom,
-        padding: {
-          bottom: config.padding.bottom,
-          left: config.padding.left
-        },
-        margin: {
-          left: config.margin.left
-        },
-        yAxis: {
-          show: config.yAxis.show
-        }
-      }
-      /**
+
+      var width = config.width
+      var height = config.height
+      var dataWidth = height - config.grid.y
+      var max = Math.floor(dataWidth/polygonW)   
+       svg.html('') 
+       /**
        * 获取update部分
        */
       var update = svg.selectAll(".areas")
@@ -100,60 +83,64 @@ define(function(require) {
       //获取exit部分
       var exit = update.exit()
 
-      var width = config.width
-      var height = config.height
-          
+      //处理exit部分
+       exit.remove()
+
       //定义一个线性渐变
       var color = config.color
       var a = d3.hcl(color[0]);    
       var b = d3.hcl(color[1]);    
       var compute = d3.interpolate(a,b); 
       var linear = d3.scale.linear()  
-            .domain([0, 15])  
+            .domain([0, max])  
             .range([0, 1.5])
         
       //定义y轴标尺
       var yScale = d3.scale.linear()
         .domain([0, d3.max(dataset)])
-        .range([height-cfg.padding.bottom, 0])
+        .range([height-config.grid.y, 0])
       //定义纵轴  
+      
       var yAxis=d3.svg.axis()
         .scale(yScale)
         .orient("left")
-          
+
       //添加y轴
-      if(cfg.yAxis.show){
+      if(config.yAxis.show){
         var yBar=svg.append("g")
           .attr('class','axis axis-y')
-          .attr('transform', 'translate('+cfg.padding.left+', '+cfg.padding.bottom/2+')')
+          .attr('transform', 'translate('+config.grid.x+', '+config.grid.y/2+')')
           .call(yAxis)
       }
       //添加六边形的area
+      var itemStyle = config.itemStyle
       var areas = enter.append('g')
         .attr('transform',function(d,i){
           i++
-          return 'translate('+(i*cfg.margin.left)+', '+(height-cfg.padding.bottom)+')'
+          return 'translate('+(i*itemStyle.margin.left)+', '+(height-config.grid.y)+')'
         })
         .attr('class', 'areas')
 
-        var unit = Math.floor(d3.max(dataset) * cfg.scale/ (cfg.max - cfg.min))
-        var itemStyle =  {
-          strokeWidth: config.itemStyle.strokeWidth,
-          stroke: config.itemStyle.stroke
-        }
+        var unit = Math.floor(d3.max(dataset) * config.scale/ max)
 
         var oPoints = config.coordinate
         var points = []
         for(var i = 0;i<oPoints.length;i++){
-          points.push(oPoints[i]/cfg.zoom)
+          points.push(oPoints[i]/config.zoom)
         }
         var index = 0
         var textPosi = []
         areas.selectAll(".polygon")
            .data(function(d,i){
               var range = Math.floor(dataset[i] / unit)
+              if(range==0){
+                range = config.min
+              }
+             if(range>max){
+               range = max
+             }  
               textPosi.push(range)
-              return d3.range(cfg.min, range)
+              return d3.range(0, range)
            })
            .enter()
            .append("polygon")
@@ -170,44 +157,39 @@ define(function(require) {
           .attr('class', 'polygon')
 
           //x轴文字
-          var textStyle = {
-            size: config.textStyle.size,
-            color: config.textStyle.color,
-            textAnchor: config.textStyle.textAnchor,
-            padding: {
-              bottom: config.textStyle.padding.bottom
-            }
-          }
+          var xText = config.xText
           areas.append('text')
-          .attr('fill', textStyle.color)
-          .attr('font-size', textStyle.size)
-          .attr('text-anchor', textStyle.textAnchor)
+          .attr('fill', xText.color)
+          .attr('font-size', xText.size)
+          .attr('text-anchor', xText.textAnchor)
           .attr('x', 0)
-          .attr('y', (cfg.padding.bottom-textStyle.padding.bottom))
+          .attr('y', (config.grid.y-xText.padding.bottom))
           .text(function(d,i){
             return data[i].name
           })
           
           //添加value
-          areas.append('text')
-            .attr('fill', textStyle.color)
-            .attr('font-size', textStyle.size)
-            .attr('text-anchor', textStyle.textAnchor)
-            .attr('x', 0)
-            .attr('y', function(d,i){
-              return textPosi[i]*-22
-            })
-            .text(function(d,i){
-              return data[i].value
-            });
-          
+          // areas.append('text')
+          //   .attr('fill', xText.color)
+          //   .attr('font-size', xText.size)
+          //   .attr('text-anchor', xText.textAnchor)
+          //   .attr('x', polygonW/4)
+          //   .attr('y', function(d,i){
+          //     console.log(textPosi[i]*-polygonW)
+          //     return textPosi[i]*-polygonW+25
+          //   })
+          //   .text(function(d,i){
+          //     return data[i].value
+          //   });
+         
           //x轴线
+          var xAxis = config.xAxis
           svg.append('rect')
-            .attr('width', width-cfg.margin.left/2 - cfg.padding.left)
+            .attr('width', width-itemStyle.margin.left/2 - config.grid.x)
             .attr('height', 1)
-            .attr('fill', '#fff')
-            .attr('x', cfg.padding.left)
-            .attr('y', (height - cfg.padding.bottom/2))
+            .attr('fill', xAxis.color)
+            .attr('x', config.grid.x)
+            .attr('y', (height - config.grid.y/2))
 
     }
   }

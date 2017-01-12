@@ -111,7 +111,7 @@ define(function(require) {
                 .attr("d", arc)
 
             //处理exit部分
-            exit.remove()
+            
         }
     }
 
