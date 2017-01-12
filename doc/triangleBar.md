@@ -66,7 +66,7 @@ bar.drawTriangleBar(svg, data, config)
 ```
 ###2 效果展示
 
-![splitBar]('img/triangleBar.pn')
+![splitBar](img/triangleBar.png)
 
 ###3 接口说明
 ####3.1 接口调用

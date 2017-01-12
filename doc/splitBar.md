@@ -74,7 +74,7 @@ splitBar.drawSplitBar(svg, data, config)
 
 ###2 效果展示
 
-![splitBar]('img/splitBar.pn')
+![splitBar](img/splitBar.png)
 
 ###3 接口说明
 

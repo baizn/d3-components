@@ -61,7 +61,7 @@ bar.drawPolygonBar(svg, data, config);
 ```
 ###2 效果展示
 
-![splitBar]('img/polygonBar.pn')
+![splitBar](img/polygonBar.png)
 
 ###3 接口说明
 ####3.1 接口调用
