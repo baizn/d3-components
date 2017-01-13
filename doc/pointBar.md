@@ -84,8 +84,8 @@ pointBar.drawPointBar(svg, data, config)
 
 | 字段                           | 含义         | 是否必选 | 默认值     | 备注                      |
 | ---------------------------- | ---------- | ---- | ------- | ----------------------- |
-| width                 | svg宽度      | 是    | 无       |                         |
-| height                | svg高度      | 是    | 无       |                         |
+| width                 | svg宽度      | 是    | 400       |                         |
+| height                | svg高度      | 是    | 200       |                         |
 | fontFamily            | 字体样式       | 否    | 微软雅黑    |                         |
 | min                   | 刻度最少个数     | 否    | 1       |                         |
 | itemStyle             | 图形样式       | 否    | 无       |                         |

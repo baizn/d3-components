@@ -23,6 +23,7 @@
 - circleArc: baizn
 - pointBar: zhanghq
 - rectFillGaguge: baizn
+- polarCoordinates zhanghq
 
 
 ## 参考资料
