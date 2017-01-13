@@ -12,8 +12,6 @@ var config = {
   height: height,
   fontFamily: '微软雅黑',
   min: 1,
-  max: 25,
-  scale: 1,
   itemStyle: {
     width: 4,
     height: 6,
@@ -96,7 +94,6 @@ splitBar.drawSplitBar(svg, data, config)
 | height                | svg高度      | 是    | 200                      |                                   |
 | fontFamily            | 字体样式       | 否    | 微软雅黑                   |                                   |
 | min                   | 刻度最少个数     | 否    | 1                      |                                   |
-| scale                 | 比例         | 否    | 1                      |                                   |
 | itemStyle             | 刻度样式（小矩形框） | 否    | 无                      |                                   |
 | itemStyle.width       | 单个矩形宽度     | 否    | 4                      |                                   |
 | itemStyle.height      | 单个矩形高度     | 否    | 6                      |                                   |
