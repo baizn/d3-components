@@ -41,10 +41,10 @@ circleArc.drawArc(svg, data, config)
 
 ### 3 配置项字段说明
 
-| 字段          | 含义     | 是否必选 | 默认值                    | 备注         |
-| ----------- | ------ | ---- | ---------------------- | ---------- |
-| width       | svg宽度  | 否    | 200                    |            |
-| height      | svg高度  | 否    | 200                    |            |
-| outerRadius | 外半径    | 否    | width/4                |            |
-| innerRadius | 内半径    | 否    | width                  |            |
+| 字段          | 含义    | 是否必选 | 默认值     | 备注   |
+| ----------- | ----- | ---- | ------- | ---- |
+| width       | svg宽度 | 否    | 200     |      |
+| height      | svg高度 | 否    | 200     |      |
+| outerRadius | 外半径   | 否    | width/4 |      |
+| innerRadius | 内半径   | 否    | width   |      |
 
