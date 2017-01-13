@@ -22,16 +22,15 @@ define(function(require) {
         width: width,
         height: height,
         min: 1,
-        scale: 1,
-        zoom: 6,
+        zoom: 8,
         color: ['#d63200', '#9936e8'],
-        //coordinate: [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] , //六边形的六个坐标点
-        coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //正六边形的六个坐标点
+        coordinate: [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] , //六边形的六个坐标点
+        //coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //正六边形的六个坐标点
         itemStyle:{
           strokeWidth: 1,
           stroke: '#06b7c7',
           margin: {
-            left: 65
+            left: 18
           }
         },
         xText: {
@@ -39,7 +38,7 @@ define(function(require) {
           color: '#fff',
           textAnchor: 'start',
           padding:{
-            bottom: 10
+            bottom: 0
           }
         },
         yAxis: {
@@ -50,7 +49,7 @@ define(function(require) {
         },
         grid: {  //文字离左右两边的距离
           x: 50,
-          y: 60
+          y: 45
         }
       }
     },
@@ -63,7 +62,7 @@ define(function(require) {
       for(var i = 0, len = data.length; i<len; i++){
         dataset.push(data[i].value)
       }
-      var polygonW = 25
+      var polygonW = 12
       var dataLen = data.length
 
       var width = config.width
@@ -114,14 +113,17 @@ define(function(require) {
       }
       //添加六边形的area
       var itemStyle = config.itemStyle
+
+      var spacing  = (width - config.grid.x - polygonW)/dataLen
+      console.log(spacing)
       var areas = enter.append('g')
         .attr('transform',function(d,i){
           i++
-          return 'translate('+(i*itemStyle.margin.left)+', '+(height-config.grid.y)+')'
+          return 'translate('+(i*spacing+itemStyle.margin.left)+', '+(height-config.grid.y)+')'
         })
         .attr('class', 'areas')
 
-        var unit = Math.floor(d3.max(dataset) * config.scale/ max)
+        var unit = Math.floor(d3.max(dataset) / max)
 
         var oPoints = config.coordinate
         var points = []
@@ -152,20 +154,32 @@ define(function(require) {
               return compute(linear(d));  
            })
           .attr('transform',function(d,i){
-              return 'translate(0,'+-(i*23)+')'
+              return 'translate(0,'+-(i*polygonW)+')'
            })
           .attr('class', 'polygon')
 
           //x轴文字
           var xText = config.xText
-          areas.append('text')
+          var textG = svg.append('g')
+          .attr('class', 'textG')
+          .attr('transform',function(d,i){
+            i++
+            return 'translate('+i*spacing+itemStyle.margin.left+', '+(height-config.grid.y)+')'
+          })
+
+          textG.selectAll('text')
+          .data(data)
+          .enter()
+          .append('text')
           .attr('fill', xText.color)
           .attr('font-size', xText.size)
           .attr('text-anchor', xText.textAnchor)
-          .attr('x', 0)
+          .attr('x', function(d, i){
+            return  i*spacing+itemStyle.margin.left
+          })
           .attr('y', (config.grid.y-xText.padding.bottom))
           .text(function(d,i){
-            return data[i].name
+            return data[i].value
           })
           
           //添加value
@@ -185,7 +199,7 @@ define(function(require) {
           //x轴线
           var xAxis = config.xAxis
           svg.append('rect')
-            .attr('width', width-itemStyle.margin.left/2 - config.grid.x)
+            .attr('width', width- config.grid.x)
             .attr('height', 1)
             .attr('fill', xAxis.color)
             .attr('x', config.grid.x)
