@@ -53,11 +53,40 @@
                 value: 300
               }
             ]
-
            
             var config = {
                 width: width,
-                height: height
+                height: height,
+                min: 1,
+                zoom: 8,
+                color: ['#d63200', '#9936e8'],
+                coordinate: [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] , //六边形的六个坐标点
+                //coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //正六边形的六个坐标点
+                itemStyle:{
+                  strokeWidth: 1,
+                  stroke: '#06b7c7',
+                  margin: {
+                    left: 18
+                  }
+                },
+                xText: {
+                  size: 14,
+                  color: '#fff',
+                  textAnchor: 'start',
+                  padding:{
+                    bottom: 0
+                  }
+                },
+                yAxis: {
+                  show: true
+                },
+                xAxis: {
+                  color: '#fff'
+                },
+                grid: {  //文字离左右两边的距离
+                  x: 50,
+                  y: 45
+                }
             }
             var svg = d3.select('body')
                 .append("svg")

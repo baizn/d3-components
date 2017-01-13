@@ -21,6 +21,7 @@
 - triangleBar: zhanghq
 - polygonBar: zhanghq
 - circleArc: baizn
+- pointBar: zhanghq
 
 
 ## 参考资料

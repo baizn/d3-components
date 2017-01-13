@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>polarCoordinates测试</title>
+  <style>
+    body{
+      background: #040931;
+      font-family: "微软雅黑";
+    }
+    .chart{
+      width: 500px;
+      height: 500px;
+      background: url(../doc/img/pieBg.png) no-repeat center center;
+      background-size: 100% 100%;
+    }
+    
+  </style>
+</head>
+<body>
+    <div id="main" class="chart"></div>
+    <script type="text/javascript" src="../lib/sea.js" ></script>
+    <script type="text/javascript" src="../config.js" ></script>
+    <script type="text/javascript">
+        seajs.use(['../src/polarCoordinates'], function(polarCoordinates) {
+            var width = 500
+            var height = 500
+
+            var data = [
+              {"name":"江北区2","value":3},
+              {"name":"江北区3","value":13},
+              {"name":"江北区4","value":31},
+              {"name":"江北区5","value":123},
+              {"name":"江北区6","value":213},
+              {"name":"江北区7","value":1012},
+              {"name":"江北区8","value":321},
+              {"name":"江北区1","value":23},
+              {"name":"江北区2","value":3},
+              {"name":"江北区3","value":13},
+              {"name":"江北区4","value":31},
+              {"name":"江北区5","value":123},
+              {"name":"江北区6","value":213},
+              {"name":"江北区7","value":1012},
+              {"name":"江北区8","value":321},
+              {"name":"江北区1","value":23},
+              {"name":"江北区2","value":3},
+              {"name":"江北区3","value":13},
+              {"name":"江北区4","value":31},
+              {"name":"江北区5","value":123},
+              {"name":"江北区6","value":213},
+              {"name":"江北区7","value":1012},
+              {"name":"江北区8","value":321},
+              {"name":"江北区1","value":23}
+            ]
+
+           
+            var config = {
+                width: width,
+                height: width,
+                lineWidth: 10,
+                lineColor: '#ec44ff',
+                radius: 150,
+                sRadius: 35,
+                max: 80,
+                min: 10,
+                textStyle: {
+                  distance: 10,
+                  fontSize: 12,
+                  color: '#fff'
+                }
+            }
+            var svg = d3.select('#main')
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+               
+
+
+            polarCoordinates.drawChart(svg, data, config);
+        })
+   </script>
+</body>
+</html>

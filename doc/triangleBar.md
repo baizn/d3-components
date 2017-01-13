@@ -82,22 +82,22 @@ bar.drawTriangleBar(svg, data, config)
 
 | 字段                            | 含义         | 是否必选 | 默认值     | 备注                      |
 | ----------------------------- | ---------- | ---- | ------- | ----------------------- |
-| config.width                  | svg宽度      | 是    | 450     |                         |
-| config.height                 | svg高度      | 是    | 280     |                         |
-| config.itemStyle              | 图形样式       | 否    | 无       |                         |
-| config.itemStyle.barWidth     | 柱子宽度       | 否    | 6       |                         |
-| config.itemStyle.borderColor  | 柱子边框颜色     | 否    | #de2528 |                         |
-| config.itemStyle.borderWidth  | 柱子边框宽      | 否    | 无       |                         |
-| config.itemStyle.circle       | 柱子上面圆点     | 否    | 4       |                         |
-| config.itemStyle.circle.color | 圆点颜色       | 否    | #fff    |                         |
-| config.itemStyle.circle.r     | 圆点半径       | 3    |         |                         |
-| config.xText                  | 左边字体样式     | 否    | 无       |                         |
-| config.xText.fontSize         | 字体大小       | 否    | 12      |                         |
-| config.xText.color            | 字体颜色       | 否    | #a5cfe0 |                         |
-| config.xText.textAnchor       | 对齐方向       | 否    | middle  | start, middle, end(左中右) |
-| config.xAxis                  | x轴线        | 否    | 无       |                         |
-| config.xAxis.color            | x轴线颜色      | 否    | #2c668e |                         |
-| config.grid                   | 文字离左右两边的距离 | 否    | 无       | 如文字太长，显示不完可改变其值         |
-| config.grid.x                 | 文字离左边的距离   | 否    | 45      |                         |
-| config.grid.y                 | 文字离右边的距离   | 否    | 60      |                         |
-| config.grid.y2                | 上边距离       | 否    | 20      |                         |
+| width                  | svg宽度      | 是    | 450     |                         |
+| height                 | svg高度      | 是    | 280     |                         |
+| itemStyle              | 图形样式       | 否    | 无       |                         |
+| itemStyle.barWidth     | 柱子宽度       | 否    | 6       |                         |
+| itemStyle.borderColor  | 柱子边框颜色     | 否    | #de2528 |                         |
+| itemStyle.borderWidth  | 柱子边框宽      | 否    | 无       |                         |
+| itemStyle.circle       | 柱子上面圆点     | 否    | 4       |                         |
+| itemStyle.circle.color | 圆点颜色       | 否    | #fff    |                         |
+| itemStyle.circle.r     | 圆点半径       | 3    |         |                         |
+| xText                  | 左边字体样式     | 否    | 无       |                         |
+| xText.fontSize         | 字体大小       | 否    | 12      |                         |
+| xText.color            | 字体颜色       | 否    | #a5cfe0 |                         |
+| xText.textAnchor       | 对齐方向       | 否    | middle  | start, middle, end(左中右) |
+| xAxis                  | x轴线        | 否    | 无       |                         |
+| xAxis.color            | x轴线颜色      | 否    | #2c668e |                         |
+| grid                   | 文字离左右两边的距离 | 否    | 无       | 如文字太长，显示不完可改变其值         |
+| grid.x                 | 文字离左边的距离   | 否    | 45      |                         |
+| grid.y                 | 文字离右边的距离   | 否    | 60      |                         |
+| grid.y2                | 上边距离       | 否    | 20      |                         |

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>splitBar测试</title>
+	<style>
+	body{
+
+  	background: #040931;
+  	font-family: "微软雅黑";
+}
+	</style>
+</head>
+<body id="body">
+ 
+  <script type="text/javascript" src="../lib/sea.js" ></script>
+  <script type="text/javascript" src="../config.js" ></script>
+  <script type="text/javascript">
+
+      seajs.use(['../src/pointBar'], function(pointBar) {
+        var width = 400
+        var height = 200
+
+        var data = [
+          {
+            name: "江北区",
+            value: 6025
+          },{
+            name: "渝北区",
+            value: 4928
+          },{
+            name: "渝中区",
+            value: 3831
+          },{
+            name: "大渡口区",
+            value: 1839
+          },{
+            name: "九龙坡区",
+            value: 3338
+          }
+        ]
+
+        var config = {
+          width: width,
+          height: height,
+          min: 1,
+          itemStyle: {
+            width: 6,
+            height: 6,
+            color: '#00fcff',
+            spacing: 6,
+            borderColor: '#0e7b98',
+            margin: {
+              right:10
+            }
+          },
+          bottomText: {
+            fontSize: 12,
+            color: '#fff',
+            textAnchor: 'start'
+          },
+          rightText: {
+            fontSize: 12,
+            color: '#fff',
+            textAnchor: 'start'
+          },
+          grid:{
+            x: 0,
+            x2: 80
+          }
+        }
+        var svg = d3.select('body')
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style('padding', '10px')
+
+        pointBar.drawPointBar(svg, data, config)
+
+        
+      })
+
+  </script>
+</body>
+</html>
