@@ -22,6 +22,7 @@
 - polygonBar: zhanghq
 - circleArc: baizn
 - pointBar: zhanghq
+- rectFillGaguge: baizn
 
 
 ## 参考资料
