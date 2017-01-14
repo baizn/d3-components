@@ -24,6 +24,8 @@
 - pointBar: zhanghq
 - rectFillGaguge: baizn
 - polarCoordinates zhanghq
+- gradientBar zhanghq
+- relationChart zhanghq
 
 
 ## 参考资料

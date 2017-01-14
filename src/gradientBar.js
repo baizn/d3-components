@@ -159,6 +159,9 @@ define(function(require) {
           })
           .attr("x",  (itemStyle.margin.left+grid.x))
           .attr("height", itemStyle.height)
+          .attr('width', 0)
+          .transition()
+          .duration(1000)
           .attr("width", function(d){
             return dataWidth
           })
@@ -176,6 +179,9 @@ define(function(require) {
           .attr('rx', itemStyle.radius)
           .attr('ry', itemStyle.radius)
           .attr("height", itemStyle.height)
+          .attr('width', 0)
+          .transition()
+          .duration(1000)
           .attr("width", function(d){
             var dWidth = dataWidth-xScale(d.value)
             if(dWidth<=0){

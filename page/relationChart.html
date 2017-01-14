@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>relationChart测试</title>
+  <style>
+  body{
+    margin: 0;
+    padding: 0;
+    background: #040931;
+    font-family: "微软雅黑";
+  }
+  .svg{
+    background: url('../doc/img/graphBg.png') no-repeat center center;
+    background-size: 50% 50%;
+  }
+  </style>
+</head>
+<body id="body">
+ 
+  <script type="text/javascript" src="../lib/sea.js" ></script>
+  <script type="text/javascript" src="../config.js" ></script>
+  <script type="text/javascript">
+
+      seajs.use(['../src/relationChart'], function(relationChart) {
+        var width = 500
+        var height = 500
+
+       var data = {
+        "detail":{
+          "caseName": "前端组"
+        },
+        "casePerson":[
+            {
+              "name": "白老师",
+              "cardId": "2334344412223",
+              "falg": 1
+            },
+            {
+              "name": "帮主",
+              "cardId": "2334344412223",
+              "falg": 0
+            },
+            {
+              "name": "涂宜冬",
+              "cardId": "2334344412223",
+              "falg": 0
+            },{
+              "name": "污妈妈",
+              "cardId": "2334344412223",
+              "falg": 0
+            },{
+              "name": "周玉",
+              "cardId": "2334344412223",
+              "falg": 0
+            },{
+              "name": "小桥",
+              "cardId": "2334344412223",
+              "falg": 0
+            },{
+              "name": "姜神",
+              "cardId": "2334344412223",
+              "falg": 0
+            },{
+              "name": "李伟",
+              "cardId": "2334344412223",
+              "falg": 0
+            },{
+              "name": "汤全昆",
+              "cardId": "2334344412223",
+              "falg": 0
+            }
+        ]
+      }
+
+        var config = {
+          width: width,
+          height: height,
+          
+        }
+        var svg = d3.select('body')
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style('padding', '20px')
+            .attr('class', 'svg')
+
+        relationChart.drawChart(svg, data, config)
+
+        
+      })
+
+  </script>
+</body>
+</html>
