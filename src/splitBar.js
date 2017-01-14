@@ -65,63 +65,32 @@ define(function(require) {
 			for(var i = 0, len = data.length; i<len; i++){
 				dataset.push(data[i].value)
 			}
-			
-		  //基础配置项
-			var cfg = {
-				height:config.height,
-				min: config.min,
-				max: config.max,
-				scale: config.scale,
-				fontFamily: config.fontFamily
-			}
-
-			var grid = {
-				x: config.grid.x,
-				x2: config.grid.x2,
-			}
-
-			//设置左边文字
-			var leftText = config.leftText
-			var leftTxt = {
-				color: leftText.color,
-				fontSize: leftText.fontSize,
-				textAnchor: leftText.textAnchor
-			}
-
-			//小矩形方块配置
-			var itemStyle = config.itemStyle
-			var rectSty = {
-				width: itemStyle.width,
-				height: itemStyle.height,
-				color: itemStyle.color,
-				spacing: itemStyle.spacing,
-				skewX: itemStyle.skewX,
-				radius: itemStyle.radius,
-				marginLeft: itemStyle.margin.left
-			}       
-			var symbol = config.itemStyle.symbol  //方块类型（矩形，平行四边形，椭圆）
-					
-			//右边文字配置
-			var rightText = config.rightText
-			var rightTxt = {
-				color: rightText.color,
-				fontSize:rightText.fontSize,
-				textAnchor: rightText.textAnchor
-			}
-
 			var width = config.width
 			var height = config.height
 			var lineHeigh = height/dataset.length  
 
+			var grid = config.grid
+
+			//设置左边文字
+			var leftTxt = config.leftText
+
+			//小矩形方块配置
+			var itemStyle = config.itemStyle
+      
+			var symbol = config.itemStyle.symbol  //方块类型（矩形，平行四边形，椭圆）
+					
+			//右边文字配置
+			var rightTxt = config.rightText
+
 			//获取矩形样式
-			var spacing = rectSty.spacing + rectSty.width 
+			var spacing = itemStyle.spacing + itemStyle.width 
 			var dataWidth = width  - grid.x - grid.x2
-			var max = Math.floor(dataWidth/(rectSty.width*2))-rectSty.width
-			var unit = Math.floor(d3.max(dataset) * cfg.scale/ max)
+			var max = Math.floor(dataWidth/(itemStyle.width*2))-itemStyle.width
+			var unit = Math.floor(d3.max(dataset)/ max)
 	
 			var xScale = d3.scale.linear()
 				.domain([0,d3.max(dataset)])
-				.range([dataWidth/cfg.scale, 0]);
+				.range([dataWidth, 0]);
 
 			var  index = 0;
 		
@@ -198,7 +167,6 @@ define(function(require) {
 					.attr('x', grid.x)
 					.attr('y', itemStyle.height )
 					.text(function(d,i){
-						console.log(data[i].name);
 						return data[i].name
 					})
 					.attr('class', 'leftText')
@@ -206,7 +174,7 @@ define(function(require) {
 				//添加数据矩形
 				gRect
 				 .attr('class','gRect')
-				 .attr('transform', 'translate('+(grid.x+rectSty.marginLeft)+',0)')
+				 .attr('transform', 'translate('+(grid.x+itemStyle.margin.left)+',0)')
 				 .selectAll(".rect")
 				 .data(d3.range(0, max))  //产生一系列的数值
 				 .enter()  
@@ -224,8 +192,8 @@ define(function(require) {
 				 .attr("y",function(d,i){  
 					return 0
 				 })  
-				 .attr('width', rectSty.width)
-				 .attr('height', rectSty.height)
+				 .attr('width', itemStyle.width)
+				 .attr('height', itemStyle.height)
 				 .attr('fill', function(d, i) {
 					var range = Math.floor(dataset[index] / unit)
 						if(range<=0){
@@ -234,25 +202,24 @@ define(function(require) {
 						if(i==max-1){
 							index ++
 						}
-						return i < range ? rectSty.color[0] : rectSty.color[1]
+						return i < range ? itemStyle.color[0] : itemStyle.color[1]
 					})
 				 .attr('class', 'rect')
 					//类型样式	   
 					if(symbol=='circle'){
 						d3.selectAll('rect')
-							.attr('rx', rectSty.radius)
-							.attr('ry', rectSty.radius)
-							.attr('width', rectSty.width+2)
+							.attr('rx', itemStyle.radius)
+							.attr('ry', itemStyle.radius)
+							.attr('width', itemStyle.width+2)
 					}
 					
 					if(symbol=='tilt'){
 						d3.selectAll('rect')
-							.attr('transform','skewX('+-(rectSty.skewX)+')')
+							.attr('transform','skewX('+-(itemStyle.skewX)+')')
 					}
 
 				//添加右边文字(value)
 				rightText
-					.attr('class', 'right-text')
 					.attr('fill', rightTxt.color)
 					.attr('font-size', rightTxt.fontSize)
 					.attr('text-anchor', rightTxt.textAnchor)

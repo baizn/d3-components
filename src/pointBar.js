@@ -1,8 +1,9 @@
-
 /**
- * 柱状图组件
- * @autor zhanghq
- * @date 2016-12-30
+ * @Author:      zhq
+ * @DateTime:    2017-01-12 21:52:27
+ * @Description: 打点柱状图
+ * @Last Modified By:   zhq
+ * @Last Modified Time:    2017-01-12 21:52:27
  */
 
 define(function(require) {
@@ -11,7 +12,7 @@ define(function(require) {
 	 */
 	require('lodash')
 	require('d3')
-	var $ = require('jquery')
+
 
 	var pointBar = {
 		/**

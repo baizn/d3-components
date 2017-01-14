@@ -23,9 +23,7 @@
     <script type="text/javascript" src="../config.js" ></script>
     <script type="text/javascript">
         seajs.use(['../src/polarCoordinates'], function(polarCoordinates) {
-            var width = 500
-            var height = 500
-
+          
             var data = [
               {"name":"江北区2","value":3},
               {"name":"江北区3","value":13},
@@ -53,18 +51,21 @@
               {"name":"江北区1","value":23}
             ]
 
-           
+            var width = 500
+            var height = 500
             var config = {
                 width: width,
-                height: width,
-                lineWidth: 10,
-                lineColor: '#ec44ff',
-                radius: 150,
-                sRadius: 35,
-                max: 80,
-                min: 10,
+                height: height,
+                itemStyle: {
+                  width: 10,
+                  color: '#ec44ff',
+                  borderColor: '#0d173f',
+                  radius: 150,
+                  max: 75,
+                  min: 10
+                },
                 textStyle: {
-                  distance: 10,
+                  distance: 20,
                   fontSize: 12,
                   color: '#fff'
                 }
@@ -73,7 +74,7 @@
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-               
+                .style('padding-top', '4.5%')
 
 
             polarCoordinates.drawChart(svg, data, config);
