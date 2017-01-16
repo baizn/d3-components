@@ -26,7 +26,28 @@
 - polarCoordinates zhanghq
 - gradientBar zhanghq
 - relationChart zhanghq
+- levelGradientMap baizn
 
+## 贡献组件说明
+贡献组件时候，必须遵守以下约定：
+
+- 组件源码放到src目录下，且代码结构遵循seajs规范
+- 组件必须经过测试，且有测试页面，测试页面必须能正常访问，测试页面放到page目录下
+- 组件必须有完整的说明文档，文档需要包括以下内容：使用示例、效果展示、实例及接口说明和配置项参数说明，文档需要包括md和html两种格式
+- 在index.html页面添加组件文档入口，添加方式如下
+    ```
+        /*修改对应的href和src链接*/
+        <div class="card">
+            <a href="">
+                <img src="./doc/img/wait.png" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            </a>
+            <p class="card-text">
+                <a href="" class="btn btn-secondary">示例</a>
+                <a href="" class="btn btn-secondary">文档</a>
+            </p>
+        </div>
+    ```
+- 在README.md文件->【组件贡献列表】，添加对应的组件名称和姓名
 
 ## 参考资料
 [lodash中文文档](http://www.css88.com/doc/lodash/)

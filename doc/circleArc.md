@@ -28,8 +28,12 @@ var svg = d3.select('#container')
 circleArc.drawArc(svg, data, config)
 ```
 
-###2 接口说明
-####2.1 接口调用
+###2 效果展示
+
+![](img/circleArc.png)
+
+###3 接口说明
+####3.1 接口调用
 调用方式：`circleArc.drawArc(svg, data, config)`
 
 参数说明：
@@ -39,7 +43,7 @@ circleArc.drawArc(svg, data, config)
 - config：配置项
 
 
-### 3 配置项字段说明
+### 4 配置项字段说明
 
 | 字段          | 含义    | 是否必选 | 默认值     | 备注   |
 | ----------- | ----- | ---- | ------- | ---- |
