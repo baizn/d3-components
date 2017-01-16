@@ -24,8 +24,8 @@ define(function(require) {
         min: 1,
         zoom: 8,
         color: ['#d63200', '#9936e8'],
-        coordinate: [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] , //六边形的六个坐标点
-        //coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //正六边形的六个坐标点
+        //coordinate: [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] , //六边形的六个坐标点
+        coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //正六边形的六个坐标点
         itemStyle:{
           strokeWidth: 1,
           stroke: '#06b7c7',
@@ -62,7 +62,21 @@ define(function(require) {
       for(var i = 0, len = data.length; i<len; i++){
         dataset.push(data[i].value)
       }
-      var polygonW = 12
+      var pointStyle = config.pointStyle
+      var oPoints = []
+      var polygonW = 0
+      console.log(pointStyle)
+      if(pointStyle==1){
+          polygonW = 200/config.zoom
+          oPoints = config.coordinate[0]
+        
+       }else{
+          polygonW = 140/config.zoom
+          oPoints = config.coordinate[1]
+       }
+       oPoints = oPoints.split(',')
+
+
       var dataLen = data.length
 
       var width = config.width
@@ -99,10 +113,10 @@ define(function(require) {
         .domain([0, d3.max(dataset)])
         .range([height-config.grid.y, 0])
       //定义纵轴  
-      
       var yAxis=d3.svg.axis()
         .scale(yScale)
         .orient("left")
+        .ticks(10)
 
       //添加y轴
       if(config.yAxis.show){
@@ -119,15 +133,17 @@ define(function(require) {
       var areas = enter.append('g')
         .attr('transform',function(d,i){
           i++
-          return 'translate('+(i*spacing+itemStyle.margin.left)+', '+(height-config.grid.y)+')'
+          var x = i*spacing+itemStyle.margin.left+config.grid.x/2
+          return 'translate('+x+', '+(height-config.grid.y)+')'
         })
         .attr('class', 'areas')
 
         var unit = Math.floor(d3.max(dataset) / max)
 
-        var oPoints = config.coordinate
+
         var points = []
         for(var i = 0;i<oPoints.length;i++){
+          
           points.push(oPoints[i]/config.zoom)
         }
         var index = 0
@@ -154,32 +170,22 @@ define(function(require) {
               return compute(linear(d));  
            })
           .attr('transform',function(d,i){
-              return 'translate(0,'+-(i*polygonW)+')'
+              return 'translate(0,'+-(i*polygonW+itemStyle.margin.bottom)+')'
            })
           .attr('class', 'polygon')
 
           //x轴文字
           var xText = config.xText
-          var textG = svg.append('g')
-          .attr('class', 'textG')
-          .attr('transform',function(d,i){
-            i++
-            return 'translate('+i*spacing+itemStyle.margin.left+', '+(height-config.grid.y)+')'
-          })
-
-          textG.selectAll('text')
-          .data(data)
-          .enter()
-          .append('text')
+          areas.append('text')
           .attr('fill', xText.color)
           .attr('font-size', xText.size)
           .attr('text-anchor', xText.textAnchor)
           .attr('x', function(d, i){
-            return  i*spacing+itemStyle.margin.left
+            return  0
           })
           .attr('y', (config.grid.y-xText.padding.bottom))
           .text(function(d,i){
-            return data[i].value
+            return data[i].name
           })
           
           //添加value

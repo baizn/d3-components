@@ -23,10 +23,6 @@ define(function(require) {
           return {
             width: width,
             height: height,
-            innerCircle: {
-              width: 20,
-              height: 20 
-            },
             outerCircle: {
               radius: 35,
               color: ['#082463', '#09194a', '#3f00c9', '#6d00bf'] 

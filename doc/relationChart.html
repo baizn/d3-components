@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>polygonBar.md</title><link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'><style type='text/css'>html, body {overflow-x: initial !important;}.CodeMirror { height: auto; }
+<title>relationChart.md</title><link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'><style type='text/css'>html, body {overflow-x: initial !important;}.CodeMirror { height: auto; }
 .CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; }
 .CodeMirror-lines { padding: 4px 0px; }
 .CodeMirror pre { }
@@ -317,65 +317,79 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 </style>
 </head>
 <body class='typora-export' >
-<div  id='write'  class = 'is-node'><h2><a name='header-c198' class='md-header-anchor '></a>多边形柱状图说明文档</h2><h3><a name='header-c200' class='md-header-anchor '></a>1 使用说明</h3><pre class='md-fences mock-cm' style='display:block;position:relative'>var bar = require(&#39;polygonBar)
-var width = 340
-var height = 270
-var config = {
-    width: width,
-    height: height,
-    min: 1,
-    zoom: 8,
-    color: [&#39;#d63200&#39;, &#39;#9936e8&#39;],
-    coordinate: [&#39;130,20, 20,40, 20,220, 130,200, 220,220, 220,40&#39;, &#39;60,20, 20,90, 60,160, 140,160, 180,90, 140,20&#39;] ,
-    pointStyle: 1,
-    itemStyle:{
-      strokeWidth: 1,
-      stroke: &#39;#06b7c7&#39;,
-      margin: {
-        left: 0,
-        bottom:8,
-      }
-    },
-    xText: {
-      size: 14,
-      color: &#39;#fff&#39;,
-      textAnchor: &#39;start&#39;,
-      padding:{
-        bottom: 0
-      }
-    },
-    yAxis: {
-      show: true
-    },
-    xAxis: {
-      color: &#39;#fff&#39;
-    },
-    grid: {  //文字离左右两边的距离
-      x: 50,
-      x2: 20,
-      y: 45
-    }
-}
-var data = [
-    {
-      name: &quot;1月&quot;,
-      value: 150
-    },{
-      name: &quot;2月&quot;,
-      value: 450
-    },{
-      name: &quot;3月&quot;,
-      value: 50
-    },{
-      name: &quot;4月&quot;,
-      value: 300
-    }
-  ]
-var svg = d3.select(&#39;body&#39;)
-    .append(&#39;svg&#39;)
-    .attr(&#39;width&#39;, width)
-    .attr(&#39;height&#39;, height)
+<div  id='write'  class = 'is-node'><h2><a name='header-c1' class='md-header-anchor '></a>极坐标图形说明文档</h2><h3><a name='header-c6' class='md-header-anchor '></a>1 使用说明</h3><pre class='md-fences mock-cm' style='display:block;position:relative'>var relationChart = require(&#39;relationChart&#39;)
 
-bar.drawPolygonBar(svg, data, config);</pre><h3><a name='header-c202' class='md-header-anchor '></a>2 效果展示</h3><p><img src='img/polygonBar.png' alt='splitBar' /></p><h3><a name='header-c205' class='md-header-anchor '></a>3 接口说明</h3><h4><a name='header-c206' class='md-header-anchor '></a>3.1 接口调用</h4><p>调用方式：<code>bar.drawPolygonBar(svg, data, config)</code></p><p>参数说明：</p><ul><li>svg: svg实例</li><li>data：数据</li><li>config：配置项</li></ul><h3><a name='header-c221' class='md-header-anchor '></a>配置项参数说明</h3><table><thead><tr><th>字段</th><th>含义</th><th>是否必选</th><th>默认值</th><th>备注</th></tr></thead><tbody><tr><td>width</td><td>svg宽度</td><td>是</td><td>无</td><td></td></tr><tr><td>height</td><td>svg高度</td><td>是</td><td>无</td><td></td></tr><tr><td>fontFamily</td><td>字体样式</td><td>否</td><td>微软雅黑</td><td></td></tr><tr><td>min</td><td>刻度最少个数</td><td>否</td><td>1</td><td></td></tr><tr><td>scale</td><td>比例</td><td>否</td><td>1</td><td></td></tr><tr><td>zoom</td><td>缩放倍数</td><td>否</td><td>6</td><td></td></tr><tr><td>color</td><td>填充渐变色</td><td>否</td><td>[&#39;#d63200&#39;, &#39;#9936e8&#39;]</td><td></td></tr><tr><td>coordinate</td><td>六边形坐标点</td><td>否</td><td>coordinate: [&#39;130,20, 20,40, 20,220, 130,200, 220,220, 220,40&#39;, &#39;60,20, 20,90, 60,160, 140,160, 180,90, 140,20&#39;]</td><td>coordinate[0]不规则六边形，coordinate[1]正六边形</td></tr><tr><td>pointStyle</td><td>六边形样式</td><td>否</td><td>1</td><td>1为不规则六边形，2为正六边形</td></tr><tr><td>itemStyle</td><td>多边形样式</td><td>否</td><td>无</td><td></td></tr><tr><td>itemStyle.strokeWidth</td><td>边框宽</td><td>否</td><td>1</td><td></td></tr><tr><td>itemStyle.stroke</td><td>边框颜色</td><td>否</td><td></td><td></td></tr><tr><td>itemStyle.margin.left</td><td>离x轴标尺的距离</td><td>否</td><td>0</td><td></td></tr><tr><td>itemStyle.margin.bottom</td><td>矩形离左边文字的距离</td><td>否</td><td>10</td><td></td></tr><tr><td>xText</td><td>x轴字体样式</td><td>否</td><td>无</td><td></td></tr><tr><td>xText.fontSize</td><td>字体大小</td><td>否</td><td>14</td><td></td></tr><tr><td>xText.color</td><td>字体颜色</td><td>否</td><td>#fff</td><td></td></tr><tr><td>xText.textAnchor</td><td>对齐方向</td><td>否</td><td>start</td><td>start, middle, end(左中右)</td></tr><tr><td>yAxis</td><td>y轴坐标</td><td>否</td><td>无</td><td></td></tr><tr><td>yAxis.show</td><td>是否显示y轴坐标</td><td>否</td><td>true</td><td></td></tr><tr><td>yAxis</td><td>x轴轴线</td><td>否</td><td>无</td><td></td></tr><tr><td>yAxis.color</td><td>x轴轴线颜色</td><td>否</td><td>#fff</td><td></td></tr><tr><td>grid</td><td>文字离左右两边的距离</td><td>否</td><td>无</td><td>如文字太长，显示不完可改变其值</td></tr><tr><td>grid.x</td><td>文字离左边的距离</td><td>否</td><td>50</td><td></td></tr><tr><td>grid.y</td><td>文字离底部的距离</td><td>否</td><td>60</td><td></td></tr></tbody></table><p></p></div>
+var width = 500
+var height = 500
+
+var data = {
+&quot;detail&quot;:{
+  &quot;caseName&quot;: &quot;前端组&quot;
+},
+&quot;casePerson&quot;:[
+    {
+      &quot;name&quot;: &quot;白老师&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 1
+    },
+    {
+      &quot;name&quot;: &quot;帮主&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    },
+    {
+      &quot;name&quot;: &quot;涂宜冬&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    },{
+      &quot;name&quot;: &quot;污妈妈&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    },{
+      &quot;name&quot;: &quot;周玉&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    },{
+      &quot;name&quot;: &quot;小桥&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    },{
+      &quot;name&quot;: &quot;姜神&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    },{
+      &quot;name&quot;: &quot;李伟&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    },{
+      &quot;name&quot;: &quot;汤全昆&quot;,
+      &quot;cardId&quot;: &quot;2334344412223&quot;,
+      &quot;falg&quot;: 0
+    }
+]
+}
+
+var config = {
+  width: width,
+  height: height,
+  outerCircle: {
+    radius: 35,
+    color: [&#39;#082463&#39;, &#39;#09194a&#39;, &#39;#3f00c9&#39;, &#39;#6d00bf&#39;] 
+  },
+  onnectLine:{
+    color: &#39;#00feff&#39;,
+    width: 2
+  },
+  radius: 120
+  
+}
+var svg = d3.select(&#39;body&#39;)
+    .append(&quot;svg&quot;)
+    .attr(&quot;width&quot;, width)
+    .attr(&quot;height&quot;, height)
+    .style(&#39;padding&#39;, &#39;20px&#39;)
+    .attr(&#39;class&#39;, &#39;svg&#39;)
+
+relationChart.drawChart(svg, data, config)</pre><h3><a name='header-c8' class='md-header-anchor '></a>2 效果展示</h3><p><img src='img/relationChart.png' alt='splitBar' /></p><h3><a name='header-c11' class='md-header-anchor '></a>3 接口说明</h3><h4><a name='header-c12' class='md-header-anchor '></a>3.1 接口调用</h4><p>调用方式：<code>relationChart.drawChart(svg, data, config)</code></p><p>参数说明：</p><ul><li>svg: svg实例</li><li>data：数据</li><li>config：配置项</li></ul><h3><a name='header-c27' class='md-header-anchor '></a>配置项参数说明</h3><table><thead><tr><th>字段</th><th>含义</th><th>是否必选</th><th>默认值</th><th>备注</th></tr></thead><tbody><tr><td>width</td><td>svg宽度</td><td>是</td><td>500</td><td></td></tr><tr><td>height</td><td>svg高度</td><td>是</td><td>500</td><td></td></tr><tr><td>outerCircle</td><td>外圆样式</td><td>否</td><td>无</td><td></td></tr><tr><td>outerCircle.radius</td><td>圆半径</td><td>否</td><td>35</td><td></td></tr><tr><td>onnectLine</td><td>连接线样式</td><td>否</td><td></td><td></td></tr><tr><td>onnectLine.color</td><td>线的颜色</td><td>否</td><td>#00feff</td><td></td></tr><tr><td>onnectLine.width</td><td>线宽</td><td>否</td><td>2</td><td></td></tr><tr><td>radius</td><td>内圆半径</td><td>否</td><td>120</td><td></td></tr></tbody></table><p></p></div>
 </body>
 </html>
