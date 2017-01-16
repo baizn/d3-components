@@ -34,7 +34,10 @@ define(function(require){
         xText:{
           fontSize: 12,
           color: '#a5cfe0',
-          textAnchor: 'middle'
+          textAnchor: 'middle',
+          margin:{
+            top: 20
+          }
         },
         xAxis: {
           color: '#2c668e'
@@ -72,12 +75,17 @@ define(function(require){
       var yAxis=d3.svg.axis()
         .scale(yScale)
         .orient("left")
-            
+
+      //定义比例尺
+      var linear = d3.scale.linear()  
+            .domain([0,d3.max(dataset)])  
+            .range([0, height-cfg.grid.y-cfg.grid.y2])
       //添加y轴
       var yBar=svg.append("g")
         .attr('class','axis axis-y')
         .attr('transform', 'translate('+cfg.grid.x+', '+cfg.grid.y2+')')
         .call(yAxis)
+
       //定义纵轴网格线
         var yInner = d3.svg.axis()
         .scale(yScale)
@@ -99,70 +107,78 @@ define(function(require){
           .attr('x', cfg.grid.x)
           .attr('y', (height - cfg.grid.y))
 
-        var polygon = svg.append('g')
-          .attr('class', 'polygon')
-
         var itemStyle = cfg.itemStyle
         var dLen = dataset.length
         var dwidth = (width - cfg.grid.x - itemStyle.barWidth)/dLen
         var barWidth = itemStyle.barWidth
+  
+        var group =  svg.selectAll(".group")
+           .data(dataset)
+           .enter()
+           .append('g')
+           .attr('class', 'group')
+           .attr('transform', function(d, i){
+              var x= i*dwidth+cfg.grid.x+barWidth*2+itemStyle.margin.left
+              var y = height - cfg.grid.y
+              return 'translate('+x+', '+y+')'
+           })
 
-          polygon.selectAll('polygon')
-            .data(dataset)
-            .enter()
-            .append('polygon')  
-            .attr('points', function(d, i){
-              var p1 = (i*dwidth+cfg.grid.x+itemStyle.barWidth)+barWidth
-              var p2 = yScale(d) + cfg.grid.y2
-              var p3 = height - cfg.grid.y
-              var points = ''+p1+', '+p2+'  '+(p1-barWidth)+',  '+p3+' '+(p1+barWidth)+' '+p3+' '
-               return points
-            })
-          .attr("fill", function(d,i){
-            return 'url(#' + linearGradient1.attr('id') + ')'
+        group.append('polygon')  
+          .attr('points', function(d, i){
+            var p1 = -1
+            console.log(linear(d)  )
+            var p2 = -linear(d)  
+            if(p2==0){
+              p2 = -itemStyle.min
+            }
+            var p3 = p1
+            var points = ''+p1+', '+p2+'  '+(p1-barWidth)+',  '+p3+' '+(p1+barWidth)+' '+p3+' '
+            return points
+             return points
           })
-          .attr('stroke-width', itemStyle.borderWidth)
-          .attr('stroke', itemStyle.borderColor)
+        .attr("fill", function(d,i){
+          return 'url(#' + linearGradient1.attr('id') + ')'
+        })
+        .attr('stroke-width', itemStyle.borderWidth)
+        .attr('stroke', itemStyle.borderColor)
 
         //添加上面小圆圈
-        polygon.selectAll('sRect')
-          .data(dataset)
-          .enter()
-          .append('circle')
+        group.append('circle')
           .attr('r', itemStyle.circle.r)
           .attr('cx', function(d,i){
             var cx = i*dwidth+cfg.grid.x+barWidth*2
-            return cx
+            return -1
           })
           .attr('cy', function(d,i){
-            var cy = yScale(d) +20
-            return cy
+            var cy =   linear(d) 
+            if(cy==0){
+              cy = itemStyle.min
+            }
+
+            return -cy
           })
           .attr('fill', itemStyle.circle.color) 
 
-        var texts = svg.append('g')
-          .attr('class', 'texts')
-          .attr('transform', 'translate('+(cfg.grid.x)+', '+(height - cfg.grid.y+10)+')')
-         
-        var spacing = (width- cfg.grid.x-barWidth)/dLen
-        texts.selectAll('text')
-          .data(dataset)
-          .enter()
-          .append('text')
-          .attr('fill', cfg.xText.color)
-          .attr('font-size', cfg.xText.fontSize)
-          .attr('text-anchor', cfg.xText.textAnchor)
+        var xText = cfg.xText  
+        console.log(xText.fontSize)
+        group.append('text')
+          .attr('fill', xText.color)
+          .attr('font-size', xText.fontSize)
+          .attr('text-anchor', xText.textAnchor)
           .text(function(d,i){
             return dataX[i]
           })
-          .style('writing-mode','tb-rl')
-          .attr('x', function(d, i){
-            var x = i*spacing+barWidth*2
-            return x
+          .style('transform','rotate(45deg)')
+          .attr('x', function(d,i){
+            var x = xText.margin.left
+            return x 
           })
-          .attr('y', function(d, i){
-            return 0
+          .attr('y', function(d,i){
+            var y = xText.margin.top
+            return y 
+
           })
+          
      
     },
     //定义线性渐变

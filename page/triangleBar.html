@@ -59,6 +59,15 @@
               },{
                 name: "九龙坡区",
                 value: 78
+              },{
+                name: "大渡口区",
+                value: 127
+              },{
+                name: "九龙坡区",
+                value: 78
+              },{
+                name: "九龙坡区",
+                value: 78
               }
             ]
 
@@ -70,21 +79,31 @@
                   color: ['#b3ff03', '#54a707'],
                   borderColor: '#de2528',
                   borderWidth: 1,
+                  margin:{
+                    left:10
+                  },
+                  min: 20,
                   circle:{
                     color:'#fff',
                     r: 3,
                   }
                 },
                 xText:{
-                  color: '#a5cfe0'
+                  fontSize: 12,
+                  color: '#a5cfe0',
+                  textAnchor: 'start',
+                  margin:{
+                    top: 15,
+                    left: 0
+                  }
                 },
                 xAxis: {
                   color: '#2c668e'
                 },
                 grid:{
-                  x: 45,
+                  x: 50,
                   y: 60,
-                  y2:20
+                  y2:40
                 }
             }
             var svg = d3.select('body')

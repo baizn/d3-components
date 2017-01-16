@@ -9,16 +9,24 @@ var config = {
     width: width,
     height: height,
     min: 1,
-    scale: 1,
-    zoom: 6,
+    zoom: 8,
     color: ['#d63200', '#9936e8'],
-    //coordinate: [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] , //六边形的六个坐标点
-    coordinate: [60,20, 20,90, 60,160, 140,160, 180,90, 140,20], //正六边形的六个坐标点
+    coordinate: ['130,20, 20,40, 20,220, 130,200, 220,220, 220,40', '60,20, 20,90, 60,160, 140,160, 180,90, 140,20'] ,
+    pointStyle: 1,
     itemStyle:{
       strokeWidth: 1,
       stroke: '#06b7c7',
       margin: {
-        left: 65
+        left: 0,
+        bottom:8,
+      }
+    },
+    xText: {
+      size: 14,
+      color: '#fff',
+      textAnchor: 'start',
+      padding:{
+        bottom: 0
       }
     },
     yAxis: {
@@ -27,14 +35,10 @@ var config = {
     xAxis: {
       color: '#fff'
     },
-     xText: {
-      size: 14,
-      color: '#fff',
-      textAnchor: 'start'
-    },
     grid: {  //文字离左右两边的距离
       x: 50,
-      y: 60
+      x2: 20,
+      y: 45
     }
 }
 var data = [
@@ -75,32 +79,32 @@ bar.drawPolygonBar(svg, data, config);
 
 ### 配置项参数说明
 
-| 字段                           | 含义          | 是否必选 | 默认值                                      | 备注                      |
-| ---------------------------- | ----------- | ---- | ---------------------------------------- | ----------------------- |
-| width                 | svg宽度       | 是    | 无                                        |                         |
-| height                | svg高度       | 是    | 无                                        |                         |
-| fontFamily            | 字体样式        | 否    | 微软雅黑                                     |                         |
-| min                   | 刻度最少个数      | 否    | 1                                        |                         |
-| scale                 | 比例          | 否    | 1                                        |                         |
-| zoom                  | 缩放倍数        | 否    | 6                                        |                         |
-| color                 | 填充渐变色       | 否    | ['#d63200', '#9936e8']                   |                         |
-| coordinate            | 多边形坐标点      | 否    | [130,20, 20,40, 20,220, 130,200, 220,220, 220,40] |                         |
-| itemStyle             | 多边形样式       | 否    | 无                                        |                         |
-| itemStyle.strokeWidth | 边框宽         | 否    | 1                                        |                         |
-| itemStyle.stroke      | 边框颜色        | 否    |                                          |                         |
-| itemStyle.margin.left | 多边形离y轴标尺的距离 | 否    | 30                                       | 类型样式为tilt有效             |
-| itemStyle.margin.left | 离y轴标尺的距离    | 否    | 65                                       | 类型样式为circle有效           |
-| itemStyle.margin.left | 矩形离左边文字的距离  | 否    | 10                                       |                         |
-| xText                 | x轴字体样式      | 否    | 无                                        |                         |
-| xText.fontSize        | 字体大小        | 否    | 14                                       |                         |
-| xText.color           | 字体颜色        | 否    | #fff                                     |                         |
-| xText.textAnchor      | 对齐方向        | 否    | start                                    | start, middle, end(左中右) |
-| yAxis                 | y轴坐标        | 否    | 无                                        |                         |
-| yAxis.show            | 是否显示y轴坐标    | 否    | true                                     |                         |
-| yAxis                 | x轴轴线        | 否    | 无                                        |                         |
-| yAxis.color           | x轴轴线颜色      | 否    | #fff                                     |                         |
-| grid                  | 文字离左右两边的距离  | 否    | 无                                        | 如文字太长，显示不完可改变其值         |
-| grid.x                | 文字离左边的距离    | 否    | 50                                       |                         |
-| grid.y                | 文字离底部的距离    | 否    | 60                                       |                         |
+| 字段                      | 含义         | 是否必选 | 默认值                                      | 备注                                    |
+| ----------------------- | ---------- | ---- | ---------------------------------------- | ------------------------------------- |
+| width                   | svg宽度      | 是    | 无                                        |                                       |
+| height                  | svg高度      | 是    | 无                                        |                                       |
+| fontFamily              | 字体样式       | 否    | 微软雅黑                                     |                                       |
+| min                     | 刻度最少个数     | 否    | 1                                        |                                       |
+| scale                   | 比例         | 否    | 1                                        |                                       |
+| zoom                    | 缩放倍数       | 否    | 6                                        |                                       |
+| color                   | 填充渐变色      | 否    | ['#d63200', '#9936e8']                   |                                       |
+| coordinate              | 六边形坐标点     | 否    | coordinate: ['130,20, 20,40, 20,220, 130,200, 220,220, 220,40', '60,20, 20,90, 60,160, 140,160, 180,90, 140,20'] | coordinate[0]不规则六边形，coordinate[1]正六边形 |
+| pointStyle              | 六边形样式      | 否    | 1                                        | 1为不规则六边形，2为正六边形                       |
+| itemStyle               | 多边形样式      | 否    | 无                                        |                                       |
+| itemStyle.strokeWidth   | 边框宽        | 否    | 1                                        |                                       |
+| itemStyle.stroke        | 边框颜色       | 否    |                                          |                                       |
+| itemStyle.margin.left   | 离x轴标尺的距离   | 否    | 0                                        |                                       |
+| itemStyle.margin.bottom | 矩形离左边文字的距离 | 否    | 10                                       |                                       |
+| xText                   | x轴字体样式     | 否    | 无                                        |                                       |
+| xText.fontSize          | 字体大小       | 否    | 14                                       |                                       |
+| xText.color             | 字体颜色       | 否    | #fff                                     |                                       |
+| xText.textAnchor        | 对齐方向       | 否    | start                                    | start, middle, end(左中右)               |
+| yAxis                   | y轴坐标       | 否    | 无                                        |                                       |
+| yAxis.show              | 是否显示y轴坐标   | 否    | true                                     |                                       |
+| yAxis                   | x轴轴线       | 否    | 无                                        |                                       |
+| yAxis.color             | x轴轴线颜色     | 否    | #fff                                     |                                       |
+| grid                    | 文字离左右两边的距离 | 否    | 无                                        | 如文字太长，显示不完可改变其值                       |
+| grid.x                  | 文字离左边的距离   | 否    | 50                                       |                                       |
+| grid.y                  | 文字离底部的距离   | 否    | 60                                       |                                       |
 
 
