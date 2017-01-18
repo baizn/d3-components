@@ -4,7 +4,7 @@
  * 使用时候一般是成组使用，可以用循环调用该组件，传入的ID或class如id1， id2
  */
 define(function(require) {
-     /**
+    /**
      * 引入公用的文件
      */
     require('lodash')

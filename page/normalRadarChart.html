@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>RadarChart</title>
+    <style>
+        body {
+            background: #040931;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/javascript" src="../lib/sea.js" ></script>
+    <script type="text/javascript" src="../config.js" ></script>
+	<script type="text/javascript">
+
+        seajs.use(['../src/normalRadarChart'], function(radarChart) {
+            var width = 540
+            var height = 400
+
+            /**
+             * r: 雷达图半径
+             * level：网格分成几级
+             * min和max 网轴的范围，类似坐标轴
+             * arc 总的角度
+             */
+            var config = {
+                width: width,
+                height: height,
+                r: 100,
+                level: 4,
+                min: 0,
+                max: 100,
+                arc: 2*Math.PI,
+                polygon: {
+                    fill: 'white',
+                    fillOpacity: 0.5,
+                    stroke: 'gray',
+                    strokeDasharray: '10 5'
+                }
+            }
+
+            var data = [
+                {
+                    name: '语文',
+                    value: 70
+                },
+                {
+                    name: '数学',
+                    value: 99
+                },
+                {
+                    name: '英语',
+                    value: 45
+                },
+                {
+                    name: '语文',
+                    value: 60
+                },
+                {
+                    name: '数学',
+                    value: 19
+                },
+                {
+                    name: '英语',
+                    value: 45
+                },
+                {
+                    name: '语文',
+                    value: 60
+                },
+                {
+                    name: '数学',
+                    value: 19
+                }
+            ]
+
+            var svg = d3.select('#container')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('class', 'radar-chart')
+                .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')')
+            
+            radarChart.drawRadarChart(svg, data, config)
+        })
+   </script>
+</body>
+</html>

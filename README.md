@@ -27,6 +27,7 @@
 - gradientBar zhanghq
 - relationChart zhanghq
 - levelGradientMap baizn
+- radarChart baizn
 
 ## 贡献组件说明
 贡献组件时候，必须遵守以下约定：
